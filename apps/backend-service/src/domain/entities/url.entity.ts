@@ -25,6 +25,6 @@ export class Url implements IUrlEntity {
     }
 
     visit(): void {
-        this.visitedCount += 1
+        this.visitedCount = this.visitedCount + 1
     }
 }

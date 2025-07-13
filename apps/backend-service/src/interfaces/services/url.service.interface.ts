@@ -7,4 +7,6 @@ export interface IUrlService {
     findById(id: string): Promise<IUrlEntity | null>
     doesShortUrlExist(shortUrl: string): Promise<boolean>
     deleteUrl(id: string): Promise<void>
+    getLongUrlByShortUrl(shortUrl:string) : Promise<IUrlEntity>
+    update(url: IUrlEntity): Promise<void>
 }

@@ -48,16 +48,15 @@ export class UrlRepository implements IUrlRepository {
     }
 
     public async update(urlEntity: IUrlEntity): Promise<void> {
-        const query = this.db.prepare("UPDATE urls SET short_url = $shortUrl, long_url = $longUrl, owner = $owner, visited_count = $visitedCount, created_at = $createdAt, updated_at = $updatedAt WHERE id = $id");
-        await query.run({
-            id: urlEntity.id,
-            longUrl: urlEntity.longUrl,
-            shortUrl: urlEntity.shortUrl,
-            owner: urlEntity.owner,
-            visitedCount: urlEntity.visitedCount,
-            createdAt: urlEntity.createdAt.toISOString(),
-            updatedAt: urlEntity.updatedAt.toISOString()
-        })
+        const query = this.db.prepare("UPDATE urls SET short_url = ?, long_url = ?, owner = ?, visited_count = ?, updated_at = ? WHERE id = ?");
+        await query.run(
+            urlEntity.shortUrl,
+            urlEntity.longUrl,
+            urlEntity.owner,
+            urlEntity.visitedCount,
+            urlEntity.updatedAt.toISOString(),
+            urlEntity.id,
+        )
     }
 
     public async delete(id: string): Promise<void> {

@@ -35,4 +35,16 @@ export class UrlService implements IUrlService {
          return this.urlRepository.findById(id)
     }
 
+    async getLongUrlByShortUrl(shortUrl:string) : Promise<IUrlEntity> {
+        const url = await this.urlRepository.findByShortUrl(shortUrl)
+        if (!url){
+            throw new Error('Not found')
+        }
+        return url
+    }
+
+    async update(url: IUrlEntity): Promise<void>{
+        return this.urlRepository.update(url)
+    }
+
 }
